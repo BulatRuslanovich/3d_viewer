@@ -13,7 +13,7 @@ namespace s21 {
 		explicit Controller(Model *m) : model(m) {}
 		bool parseFile(std::string filePath) { return model->processObjFile(std::move(filePath)); }
 		ModelDate &getDate() { return model->getDate(); }
-
+		void setCenter(ModelDate * date) { model->setCentre(date); }
 	private:
 		Model *model;
 	};

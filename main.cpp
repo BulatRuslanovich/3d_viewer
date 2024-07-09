@@ -13,8 +13,6 @@ int main(int argc, char *argv[]) {
 
 	s21::Model m = s21::Model();
 	s21::Controller c = s21::Controller(&m);
-	c.parseFile(filePath);
-
     QApplication a(argc, argv);
     s21::View v = s21::View(nullptr, &c);
     v.show();

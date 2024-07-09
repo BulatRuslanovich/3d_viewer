@@ -3,23 +3,40 @@
 namespace s21 {
 
 	GLWidget::GLWidget(QWidget *parent, s21::Controller *c) : QOpenGLWidget(parent), controller(c) {
-		SetDefault();
+		setDefault();
 	}
 
-	void GLWidget::SetDefault() {
+	void GLWidget::setDefault() {
 		backgroundColor = QColor(Qt::black);
 		vertexColor = QColor(Qt::white);
 		lineColor = QColor(Qt::white);
-
+		lineWidth = 1;
+		vertexSize = 1;
 		update();
 	}
 
 	void GLWidget::clearGLWidget() {
+		makeCurrent();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		doneCurrent();
+		update();
+	}
+
+	void GLWidget::setData(s21::Controller *c) {
 
 	}
 
-	void GLWidget::SetData(s21::Controller *c) {
+	void GLWidget::setProjection() const {
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
 
+		if (true) {
+			glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
+		} else if (false) {
+			gluPerspective(24, aspectRatio, 0.1, 100);
+		}
+
+		glMatrixMode(GL_MODELVIEW);
 	}
 
 	void GLWidget::drawVertexes() {
@@ -32,12 +49,13 @@ namespace s21 {
 		if (true) {
 			if (!vertexColor.isValid()) {
 				vertexColor = QColor(Qt::white);
+			} else {
+				glColor3f(vertexColor.redF(),
+				          vertexColor.greenF(),
+				          vertexColor.blueF());
 			}
 
-			glColor3f(vertexColor.redF(),
-					vertexColor.greenF(),
-					vertexColor.blueF());
-			glPointSize(static_cast<GLfloat>(40));
+			glPointSize(static_cast<GLfloat>(vertexSize));
 
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3,
@@ -88,16 +106,30 @@ namespace s21 {
 		             backgroundColor.blueF(),
 		             backgroundColor.alphaF());
 		glTranslated(0, 0, -10);
+		setProjection();
 		drawVertexes();
+		setLinesType();
 		drawLines();
 	}
 
 	void GLWidget::resizeGL(int w, int h) {
-		QOpenGLWidget::resizeGL(w, h);
+		glViewport(0, 0, w, h);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+
+		aspectRatio = qreal(w) / qreal(h ? h : 1);
 	}
 
 	void GLWidget::wheelEvent(QWheelEvent *event) {
-		QWidget::wheelEvent(event);
+		const float scaleFactor = 0.9f;
+
+//		if (event->angleDelta().y() > 0) {
+//
+//		} else {
+//
+//		}
+
+		update();
 	}
 
 	void GLWidget::mousePressEvent(QMouseEvent *) {
@@ -105,5 +137,26 @@ namespace s21 {
 
 	void GLWidget::mouseMoveEvent(QMouseEvent *) {
 
+	}
+
+	void GLWidget::setLinesType() {
+		if (true) {
+			glEnable(GL_LINE_STIPPLE);
+			glLineStipple(1, 0x00FF);
+		} else {
+			glDisable(GL_LINE_STIPPLE);
+		}
+
+		if (!lineColor.isValid()) {
+			lineColor = QColor(Qt::white);
+		} else {
+			glColor3f(lineColor.redF(), lineColor.greenF(), lineColor.blueF());
+		}
+
+		glLineWidth(static_cast<GLfloat>(lineWidth));
+	}
+
+	void GLWidget::setScale(float scale) {
+		scaleMatrix.scale(scale, scale, scale);
 	}
 } // s21

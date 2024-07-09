@@ -32,6 +32,8 @@ add_executable(3d_viewer
         controller/controller.h
         view/glwidget.h
         view/glwidget.cpp
+        model/set_center.h
+        model/set_center.cpp
 )
 
 

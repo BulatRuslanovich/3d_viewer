@@ -23,6 +23,9 @@ private:
     Ui::View *ui;
 	Controller *controller;
 	GLWidget* glWidget;
+	QString filePath;
+private slots:
+	void openFilePushButtonClicked();
 };
 }
 #endif // VIEW_H

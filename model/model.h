@@ -2,6 +2,7 @@
 #define INC_3D_VIEWER_MODEL_H
 
 #include "parser.h"
+#include "set_center.h"
 
 namespace s21 {
 
@@ -12,9 +13,15 @@ namespace s21 {
 
 		ModelDate& getDate() { return modelDate; }
 		bool processObjFile(std::string filePath);
+		void setCentre(ModelDate *data);
+
+		static void giveCommand(ModelDate *data, Event *event, Event::Command command);
 
 	private:
 		ModelDate modelDate;
+		FindMinMax *findMinMax;
+		FindMax *findMax;
+		FindCentre *findCentre;
 	};
 
 } // s21
