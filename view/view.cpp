@@ -27,8 +27,10 @@ View::~View() {
 }
 
 	void View::openFilePushButtonClicked() {
-		filePath = QFileDialog::getOpenFileName(this, "Выбрать файл", "~/",
-		                                          "All Files (*.obj)");
+		filePath = QFileDialog::getOpenFileName(this,
+												"Select File",
+												QDir::homePath(),
+												"All Files (*.obj)");
 		ui->vertexCount->setText("");
 		ui->polygonCount->setText("");
 		ui->fileNameLabel->setText("");

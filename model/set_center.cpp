@@ -59,7 +59,7 @@ namespace s21 {
 
 	void FindCentre::execute(s21::ModelDate *data, Command command) {
 		if (command == Event::Command::findCentre) {
-			double scale = 1.0 / scaleForCentre;
+			double scale = 2.0 / scaleForCentre;
 
 			for (auto &vertex : data->getCoordinates()) {
 				vertex.x -= centre.x;

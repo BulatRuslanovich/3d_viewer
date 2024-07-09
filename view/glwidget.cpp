@@ -30,9 +30,9 @@ namespace s21 {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		if (true) {
+		if (false) {
 			glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
-		} else if (false) {
+		} else if (true) {
 			gluPerspective(24, aspectRatio, 0.1, 100);
 		}
 

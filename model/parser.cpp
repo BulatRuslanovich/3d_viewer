@@ -41,22 +41,27 @@ namespace s21 {
 	}
 
 	void Parser::parsePolygon(const std::string &line, ModelDate *data) {
-		std::stringstream ss(line.substr(2));
+		auto tempLine = line.substr(2);
 		int firstPolygon = -1;
 		int num;
+		size_t id;
 		bool isFirst = true;
 
-		while (ss >> num) {
-			adjustPolygonIndex(&num, data);
+		for (size_t i = 0; i < tempLine.length(); ++i) {
+			if (std::isdigit(tempLine[i]) || tempLine[i] == '-') {
+				num = std::stoi(&tempLine[i], &id);
+				i += id;
+				adjustPolygonIndex(&num, data);
 
-			if (isFirst) {
-				firstPolygon = num;
-				isFirst = false;
-			} else {
-				data->getPolygons().push_back(num);
+				if (isFirst) {
+					firstPolygon = num;
+					isFirst = false;
+				} else {
+					data->getPolygons().push_back(num);
+				}
+
+				for (;i < tempLine.length() && tempLine[i] != ' ';++i) {} // 1/2/3 2/3/4 ... => 1 2 ...
 			}
-
-			if (ss.peek() == ' ') ss.ignore();
 		}
 
 		if (firstPolygon != -1) {
