@@ -25,6 +25,7 @@ add_executable(3d_viewer
         model/model_data.cpp
         model/model.h
         model/model.cpp
+        controller/controller.h
 )
 
 
