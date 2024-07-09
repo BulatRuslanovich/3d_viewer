@@ -1,14 +1,26 @@
-//
-// Created by getname on 7/8/24.
-//
-
 #ifndef TEST_PROJECT_MODEL_DATA_H
 #define TEST_PROJECT_MODEL_DATA_H
 
+#include <vector>
+
 namespace s21 {
+	class ModelDate {
+	public:
+		struct Coordinate {
+			Coordinate() : x(0), y(0), z(0) {}
+			double x, y, z;
+		};
 
-	class model_data {
+		ModelDate() = default;
+		~ModelDate() = default;
 
+		std::vector<Coordinate> &getCoordinates();
+		std::vector<int> &getPolygons();
+		void clearData();
+
+	private:
+		std::vector<Coordinate> coordinates;
+		std::vector<int> polygons;
 	};
 
 } // s21
