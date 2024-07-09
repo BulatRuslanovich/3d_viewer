@@ -10,5 +10,9 @@ namespace s21 {
 
 	}
 
+	bool Model::processObjFile(std::string filePath) {
+		return Parser::parseFile(filePath, &modelDate);
+	}
+
 
 } // s21

@@ -6,11 +6,15 @@
 namespace s21 {
 
 	class Model {
+	public:
 		Model();
 		~Model();
 
-		ModelDate& getDate();
+		ModelDate& getDate() { return modelDate; }
 		bool processObjFile(std::string filePath);
+
+	private:
+		ModelDate modelDate;
 	};
 
 } // s21

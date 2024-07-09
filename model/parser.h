@@ -11,8 +11,6 @@ namespace s21 {
 	public:
 		static bool parseFile(std::string &filePath, ModelDate *data);
 	private:
-//		Parser() = default;
-//		~Parser() = default;
 		static void parseLine(const std::string& line, ModelDate* data);
 		static void writeVertex(const std::string& line, ModelDate* data);
 		static void parsePolygon(const std::string& line, ModelDate* data);
