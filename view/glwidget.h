@@ -5,69 +5,132 @@
 #include <OpenGL/hl.h>
 #include <OpenGL/glu.h>
 #else
+
 #include <GL/gl.h>
 #include <GL/glu.h>
+
 #endif
 
 #include <QColor>
 #include <QColorDialog>
-#include <QCoreApplication>
-#include <QDebug>
 #include <QFileDialog>
-#include <QMatrix4x4>
-#include <QMessageBox>
 #include <QMouseEvent>
 #include <QOpenGLFunctions>
-#include <QPainter>
-#include <QSettings>
 #include <QTimer>
-#include <QWidget>
 
 #include <QtOpenGLWidgets/qopenglwidget.h>
-#include <QMatrix4x4>
 #include "../controller/controller.h"
 
 
 namespace s21 {
 
-	class GLWidget : public QOpenGLWidget{
+	class GLWidget : public QOpenGLWidget {
 	public:
+		enum class LinesType {
+			SOLID, DASHED
+		};
+		enum class VertexesType {
+			NONE, CIRCLE, SQUARE
+		};
+		enum class ProjectionType {
+			CENTRAL, PARALLEL
+		};
+
 		explicit GLWidget(QWidget *parent = nullptr, s21::Controller *c = nullptr);
 
-		void setController(s21::Controller *c) { controller = c; }
 		void setDefault();
 
 		void clearGLWidget();
-		void setData(s21::Controller *c);
+
+		void setLinesType(LinesType type) {
+			linesType = type;
+			update();
+		}
+
+		void setVertexesType(VertexesType type) {
+			vertexesType = type;
+			update();
+		}
+
+		void setProjectionType(ProjectionType type) {
+			projectionType = type;
+			update();
+		}
+
+		void setBackgroundColor(QColor color) {
+			backgroundColor = color;
+			update();
+		}
+
+		void setVertexesColor(QColor color) {
+			vertexColor = color;
+			update();
+		}
+
+		void setLinesColor(QColor color) {
+			lineColor = color;
+			update();
+		}
+
+		void setVertexesSize(int size) {
+			vertexSize = size;
+			update();
+		}
+
+		void setLinesWidth(int width) {
+			lineWidth = width;
+			update();
+		}
+
+		[[nodiscard]] QColor getBackgroundColor() { return backgroundColor; }
+
+		[[nodiscard]] QColor getVertexesColor() { return vertexColor; }
+
+		[[nodiscard]] QColor getLinesColor() { return lineColor; }
+
+		[[nodiscard]] int getLineWidth() const { return lineWidth; }
+
+		[[nodiscard]] int getVertexSize() const { return vertexSize; }
+
+		[[nodiscard]] LinesType getLinesType() { return linesType; }
+
+		[[nodiscard]] VertexesType getVertexesType() { return vertexesType; }
+
+		[[nodiscard]] ProjectionType getProjectionType() { return projectionType; }
+
 	private:
 		s21::Controller *controller;
 		QColor backgroundColor;
 		QColor vertexColor;
 		QColor lineColor;
-		int lineWidth;
-		int vertexSize;
-		double aspectRatio;
+		int lineWidth{};
+		int vertexSize{};
+		double aspectRatio{};
 		QPoint mousePosition;
-		QMatrix4x4 scaleMatrix;
+		LinesType linesType;
+		VertexesType vertexesType;
+		ProjectionType projectionType;
 
-		int widgetWidth = width();
-		int widgetHeight = height();
 
 		void drawVertexes();
+
 		void drawLines();
 
+		void setProjection() const;
+
+		void setLinesType();
 
 		void initializeGL() override;
+
 		void paintGL() override;
+
 		void resizeGL(int w, int h) override;
 
-		void setProjection() const;
-		void setLinesType();
 		void wheelEvent(QWheelEvent *event) override;
-		void mousePressEvent(QMouseEvent *) override;
-		void mouseMoveEvent(QMouseEvent *) override;
 
-		void setScale(float scale);
+		void mousePressEvent(QMouseEvent *) override;
+
+		void mouseMoveEvent(QMouseEvent *) override;
 	};
 
 } // s21

@@ -26,6 +26,18 @@ private:
 	QString filePath;
 private slots:
 	void openFilePushButtonClicked();
+	void cleanPushButtonClicked();
+	void setDefaultButton();
+	void setBackgroundColorClicked();
+	void setLinesColorClicked();
+	void setVertexesColorClicked();
+
+	void projectionTypeChanged(int index);
+	void linesTypeChanged(int index);
+	void vertexesTypeChanged(int index);
+
+	void vertexSizeValueChanged(int value);
+	void linesWidthValueChanged(int value);
 };
 }
 #endif // VIEW_H

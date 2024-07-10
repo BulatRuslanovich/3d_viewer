@@ -10,8 +10,14 @@ namespace s21 {
 		backgroundColor = QColor(Qt::black);
 		vertexColor = QColor(Qt::white);
 		lineColor = QColor(Qt::white);
+
 		lineWidth = 1;
 		vertexSize = 1;
+
+		projectionType = ProjectionType::CENTRAL;
+		vertexesType = VertexesType::NONE;
+		linesType = LinesType::SOLID;
+
 		update();
 	}
 
@@ -22,17 +28,13 @@ namespace s21 {
 		update();
 	}
 
-	void GLWidget::setData(s21::Controller *c) {
-
-	}
-
 	void GLWidget::setProjection() const {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		if (false) {
+		if (projectionType == ProjectionType::PARALLEL) {
 			glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
-		} else if (true) {
+		} else if (projectionType == ProjectionType::CENTRAL) {
 			gluPerspective(24, aspectRatio, 0.1, 100);
 		}
 
@@ -40,13 +42,13 @@ namespace s21 {
 	}
 
 	void GLWidget::drawVertexes() {
-		if (true) {
+		if (vertexesType == VertexesType::CIRCLE) {
 			glEnable(GL_POINT_SMOOTH);
-		} else {
+		} else if (vertexesType == VertexesType::SQUARE) {
 			glEnable(GL_POINT_SPRITE);
 		}
 
-		if (true) {
+		if (vertexesType != VertexesType::NONE) {
 			if (!vertexColor.isValid()) {
 				vertexColor = QColor(Qt::white);
 			} else {
@@ -62,16 +64,16 @@ namespace s21 {
 							GL_DOUBLE,
 							0,
 							controller->getDate().getCoordinates().data());
-			glDrawElements(GL_POINT,
+			glDrawElements(GL_POINTS,
 			               (int)controller->getDate().getPolygons().size(),
 						   GL_UNSIGNED_INT,
 						   controller->getDate().getPolygons().data());
 			glDisableClientState(GL_VERTEX_ARRAY);
 		}
 
-		if (true) {
+		if (vertexesType == VertexesType::CIRCLE) {
 			glDisable(GL_POINT_SMOOTH);
-		} else {
+		} else if (vertexesType == VertexesType::SQUARE) {
 			glDisable(GL_POINT_SPRITE);
 		}
 	}
@@ -98,13 +100,15 @@ namespace s21 {
 	}
 
 	void GLWidget::paintGL() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 		glClearColor(backgroundColor.redF(),
 		             backgroundColor.greenF(),
 		             backgroundColor.blueF(),
 		             backgroundColor.alphaF());
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
 		glTranslated(0, 0, -10);
 		setProjection();
 		drawVertexes();
@@ -140,10 +144,10 @@ namespace s21 {
 	}
 
 	void GLWidget::setLinesType() {
-		if (true) {
+		if (linesType == LinesType::DASHED) {
 			glEnable(GL_LINE_STIPPLE);
 			glLineStipple(1, 0x00FF);
-		} else {
+		} else if (linesType == LinesType::SOLID) {
 			glDisable(GL_LINE_STIPPLE);
 		}
 
@@ -156,7 +160,4 @@ namespace s21 {
 		glLineWidth(static_cast<GLfloat>(lineWidth));
 	}
 
-	void GLWidget::setScale(float scale) {
-		scaleMatrix.scale(scale, scale, scale);
-	}
 } // s21
