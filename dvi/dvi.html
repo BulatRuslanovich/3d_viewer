@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>3DViewer v2.0</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif;
+            font-size: 16px;
+            padding: 0 30px;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: normal;
+            color: #1e88e5;
+        }
+
+        h1 {
+            border-bottom: 2px solid #1e88e5;
+            padding-bottom: 8px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace;
+            font-size: 0.9em;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 2px 4px;
+        }
+
+        pre {
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            overflow-x: auto;
+            padding: 16px;
+        }
+
+        blockquote {
+            margin: 0 20px;
+            padding: 10px 20px;
+            border-left: 5px solid #1e88e5;
+            background: #f0f0f0;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #1565c0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast') ? 'dark' : 'default'
+    });
+</script>
+
+<h1>3DViewer v2.0</h1>
+
+<h2>Description</h2>
+<p>A program for visualizing wireframe models in 3D space.</p>
+<ul>
+    <li>The program is developed in C++ using the C++17 standard.</li>
+    <li>Source code is located in the <code>src</code> directory.</li>
+    <li>Code style follows the Google coding style guidelines.</li>
+    <li>The project uses a Makefile with standard targets: all, install, uninstall, clean, dvi, dist, tests.</li>
+</ul>
+
+<ol>
+    <li>
+        <p><strong>Software Architecture:</strong></p>
+        <ul>
+            <li>The program is designed following object-oriented programming principles.</li>
+            <li>The Model-View-Controller (MVC) design pattern is utilized.</li>
+            <li>The code is modular, separating business logic (models), visual representation (views), and controllers.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Program Features:</strong></p>
+        <ul>
+            <li>Load wireframe models from OBJ files, supporting vertex and surface lists only.</li>
+            <li>Translate the model by specified distances along the X, Y, and Z axes.</li>
+            <li>Rotate the model by specified angles around its X, Y, and Z axes.</li>
+            <li>Scale the model by a specified factor.</li>
+        </ul>
+    </li>
+</ol>
+
+<p><img src="misc/build.gif" alt="build process"></p>
+
+<h3>Additional Settings</h3>
+<ol>
+    <li>
+        <p><strong>Projection Type and Display Options:</strong></p>
+        <ul>
+            <li>The program supports configuring the projection type (parallel or central).</li>
+            <li>Users can customize edge types and vertex display options.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Appearance Settings:</strong></p>
+        <ul>
+            <li>Option to select background color.</li>
+            <li>Option to select vertex color and size.</li>
+            <li>Option to select edge color and thickness.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Configuration Persistence:</strong></p>
+        <ul>
+            <li>Settings are saved between program restarts.</li>
+        </ul>
+    </li>
+</ol>
+
+<p><img src="misc/open_obj.gif" alt="open OBJ file"></p>
+
+<h3>Additional Functionality - Recording</h3>
+<ol>
+    <li>
+        <p><strong>Image Saving:</strong></p>
+        <ul>
+            <li>Save model images in BMP and JPEG formats.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>GIF Creation:</strong></p>
+        <ul>
+            <li>Record user transformations of the loaded object into a GIF animation (10fps, 5s).</li>
+        </ul>
+    </li>
+</ol>
+
+<p><img src="misc/screencast.gif" alt="screen cast and gif"></p>
+
+<h2>System Requirements</h2>
+<ul>
+    <li>Operating System: Linux or macOS</li>
+    <li>C++17 compiler, CMake (version 3.22 or higher)</li>
+    <li>GUI library with C++17 API (Qt)</li>
+    <li>GTest library (for unit tests)</li>
+</ul>
+
+<h2>Project Structure</h2>
+<ul>
+    <li><code>src/model</code> - business logic code</li>
+    <li><code>src/controller</code> - controller code</li>
+    <li><code>src/view</code> - graphical interface code</li>
+    <li><code>src/tests</code> - unit tests (GTest)</li>
+    <li><code>src/Makefile</code> - project build file</li>
+</ul>
+
+<h2>Usage</h2>
+<p>To run the program:</p>
+
+<pre>
+cd ../src
+make
+</pre>
+
+</body>
+
+</html>
