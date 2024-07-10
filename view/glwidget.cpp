@@ -180,5 +180,4 @@ namespace s21 {
 
 		glLineWidth(static_cast<GLfloat>(lineWidth));
 	}
-
 } // s21

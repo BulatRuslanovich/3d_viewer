@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "../controller/controller.h"
 #include "glwidget.h"
+#include "QtGifImage/gifimage/qgifimage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,6 +25,20 @@ namespace s21 {
 		Controller *controller;
 		GLWidget *glWidget;
 		QString filePath;
+		QString gifName;
+		QGifImage *gifFrame;
+		int screenCounter = 0;
+		QTimer *gifTimer;
+
+		double oldZoomVal = 0;
+		double oldMoveXVal = 0;
+		double oldMoveYVal = 0;
+		double oldMoveZVal = 0;
+
+		double oldRotateXVal = 0;
+		double oldRotateYVal = 0;
+		double oldRotateZVal = 0;
+
 	private slots:
 
 		void openFilePushButtonClicked();
@@ -47,6 +62,21 @@ namespace s21 {
 		void vertexSizeValueChanged(int value);
 
 		void linesWidthValueChanged(int value);
+
+		void moveXSlider(int value);
+		void moveYSlider(int value);
+		void moveZSlider(int value);
+
+		void minusPlusSlider(int value);
+
+
+		void rotateXSlider(int value);
+		void rotateYSlider(int value);
+		void rotateZSlider(int value);
+
+		void createScreenClicked();
+		void createGifClicked();
+		void createAnimation();
 	};
 }
 #endif // VIEW_H

@@ -694,7 +694,7 @@
              <number>1</number>
             </property>
             <property name="maximum">
-             <number>15</number>
+             <number>150</number>
             </property>
             <property name="orientation">
              <enum>Qt::Orientation::Horizontal</enum>
@@ -742,7 +742,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTabWidget" name="tabWidget">
+       <widget class="QTabWidget" name="Zoom">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -797,12 +797,12 @@
            </widget>
           </item>
           <item row="3" column="3">
-           <widget class="QSlider" name="move_x_slider">
+           <widget class="QSlider" name="moveXSlider">
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="pageStep">
              <number>10</number>
@@ -819,12 +819,12 @@
            </widget>
           </item>
           <item row="4" column="3">
-           <widget class="QSlider" name="move_y_slider">
+           <widget class="QSlider" name="moveYSlider">
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="orientation">
              <enum>Qt::Orientation::Horizontal</enum>
@@ -844,12 +844,12 @@
            </widget>
           </item>
           <item row="5" column="3">
-           <widget class="QSlider" name="move_z_slider">
+           <widget class="QSlider" name="moveZSlider">
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="orientation">
              <enum>Qt::Orientation::Horizontal</enum>
@@ -864,7 +864,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="QSlider" name="PlusMinuxSlider">
+           <widget class="QSlider" name="minusPlusSlider">
             <property name="font">
              <font>
               <pointsize>11</pointsize>
@@ -874,10 +874,10 @@
              <bool>false</bool>
             </property>
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="orientation">
              <enum>Qt::Orientation::Horizontal</enum>
@@ -943,12 +943,12 @@
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="QSlider" name="rotate_x_slider">
+           <widget class="QSlider" name="rotateXSlider">
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="pageStep">
              <number>10</number>
@@ -965,12 +965,12 @@
            </widget>
           </item>
           <item row="6" column="2">
-           <widget class="QSlider" name="rotate_y_slider">
+           <widget class="QSlider" name="rotateYSlider">
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="pageStep">
              <number>10</number>
@@ -987,12 +987,12 @@
            </widget>
           </item>
           <item row="7" column="2">
-           <widget class="QSlider" name="rotate_z_slider">
+           <widget class="QSlider" name="rotateZSlider">
             <property name="minimum">
-             <number>-50</number>
+             <number>-10</number>
             </property>
             <property name="maximum">
-             <number>50</number>
+             <number>10</number>
             </property>
             <property name="pageStep">
              <number>10</number>

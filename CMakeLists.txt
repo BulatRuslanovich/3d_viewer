@@ -13,8 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
-#find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-#find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGLWidgets)
+find_package(GIF REQUIRED)
 
 
 add_executable(3d_viewer
@@ -36,10 +35,24 @@ add_executable(3d_viewer
         model/set_center.cpp
         model/affine_transformations.h
         model/affine_transformations.cpp
+
+        view/QtGifImage/gifimage/qgifimage.h
+        view/QtGifImage/gifimage/qgifimage.cpp
+        view/QtGifImage/gifimage/qgifglobal.h
+        view/QtGifImage/gifimage/qgifimage_p.h
+        view/QtGifImage/3rdParty/giflib/gif_lib.h
+        view/QtGifImage/3rdParty/giflib/gif_hash.h
+        view/QtGifImage/3rdParty/giflib/dgif_lib.c
+        view/QtGifImage/3rdParty/giflib/egif_lib.c
+        view/QtGifImage/3rdParty/giflib/gif_err.c
+        view/QtGifImage/3rdParty/giflib/gif_font.c
+        view/QtGifImage/3rdParty/giflib/gif_hash.c
+        view/QtGifImage/3rdParty/giflib/gifalloc.c
+        view/QtGifImage/3rdParty/giflib/quantize.c
+
 )
 
 
-target_link_libraries(3d_viewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets OpenGL::GLU)
-#target_link_libraries(3d_viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(3d_viewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets OpenGL::GLU gif)
 
 
