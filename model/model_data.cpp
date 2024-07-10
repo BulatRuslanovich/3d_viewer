@@ -1,15 +1,15 @@
 #include "model_data.h"
 
 namespace s21 {
-	std::vector<ModelDate::Coordinate> &ModelDate::getCoordinates() {
+	std::vector<ModelData::Coordinate> &ModelData::getCoordinates() {
 		return coordinates;
 	}
 
-	std::vector<int> &ModelDate::getPolygons() {
+	std::vector<int> &ModelData::getPolygons() {
 		return polygons;
 	}
 
-	void ModelDate::clearData() {
+	void ModelData::clearData() {
 		coordinates.clear();
 		polygons.clear();
 	}

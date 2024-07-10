@@ -34,6 +34,8 @@ add_executable(3d_viewer
         view/glwidget.cpp
         model/set_center.h
         model/set_center.cpp
+        model/affine_transformations.h
+        model/affine_transformations.cpp
 )
 
 

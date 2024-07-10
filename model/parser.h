@@ -9,12 +9,16 @@ namespace s21 {
 
 	class Parser {
 	public:
-		static bool parseFile(std::string &filePath, ModelDate *data);
+		static bool parseFile(std::string &filePath, ModelData *data);
+
 	private:
-		static void parseLine(const std::string& line, ModelDate* data);
-		static void writeVertex(const std::string& line, ModelDate* data);
-		static void parsePolygon(const std::string& line, ModelDate* data);
-		static void adjustPolygonIndex(int* num, ModelDate* data);
+		static void parseLine(const std::string &line, ModelData *data);
+
+		static void writeVertex(const std::string &line, ModelData *data);
+
+		static void parsePolygon(const std::string &line, ModelData *data);
+
+		static void adjustPolygonIndex(int *num, ModelData *data);
 	};
 
 } // s21

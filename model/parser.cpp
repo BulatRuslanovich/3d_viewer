@@ -2,7 +2,7 @@
 
 namespace s21 {
 
-	bool Parser::parseFile(std::string &filePath, ModelDate *data) {
+	bool Parser::parseFile(std::string &filePath, ModelData *data) {
 		bool state_file = true;
 		std::ifstream file(filePath);
 
@@ -20,7 +20,7 @@ namespace s21 {
 		return state_file;
 	}
 
-	void Parser::parseLine(const std::string &line, ModelDate *data) {
+	void Parser::parseLine(const std::string &line, ModelData *data) {
 		if (line.empty()) return;
 
 		if (line[1] == ' ') {
@@ -32,15 +32,15 @@ namespace s21 {
 		}
 	}
 
-	void Parser::writeVertex(const std::string &line, ModelDate *data) {
-		ModelDate::Coordinate coordinate;
+	void Parser::writeVertex(const std::string &line, ModelData *data) {
+		ModelData::Coordinate coordinate;
 		std::stringstream ss(line);
 		char symbol = '\0';
 		ss >> symbol >> coordinate.x >> coordinate.y >> coordinate.z;
 		data->getCoordinates().push_back(coordinate);
 	}
 
-	void Parser::parsePolygon(const std::string &line, ModelDate *data) {
+	void Parser::parsePolygon(const std::string &line, ModelData *data) {
 		auto tempLine = line.substr(2);
 		int firstPolygon = -1;
 		int num;
@@ -60,7 +60,7 @@ namespace s21 {
 					data->getPolygons().push_back(num);
 				}
 
-				for (;i < tempLine.length() && tempLine[i] != ' ';++i) {} // 1/2/3 2/3/4 ... => 1 2 ...
+				for (; i < tempLine.length() && tempLine[i] != ' '; ++i) {} // 1/2/3 2/3/4 ... => 1 2 ...
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace s21 {
 		}
 	}
 
-	void Parser::adjustPolygonIndex(int *num, ModelDate *data) {
+	void Parser::adjustPolygonIndex(int *num, ModelData *data) {
 		if (*num > 0) {
 			(*num)--;
 		} else {

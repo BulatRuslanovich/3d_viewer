@@ -7,7 +7,7 @@
 #include <iostream>
 
 int main(int argc, char *argv[]) {
-//	s21::ModelDate date = s21::ModelDate();
+//	s21::ModelData date = s21::ModelData();
 	std::string filePath = "/home/getname/CLionProjects/3d_viewer/pyramid.obj";
 //	s21::Parser::parseFile(filePath, &date);
 

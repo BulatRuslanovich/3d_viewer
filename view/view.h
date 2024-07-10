@@ -7,37 +7,46 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class View;
+	class View;
 }
 QT_END_NAMESPACE
 namespace s21 {
-class View : public QMainWindow
-{
-    Q_OBJECT
+	class View : public QMainWindow {
+	Q_OBJECT
 
-public:
-    explicit View(QWidget *parent = nullptr, s21::Controller *c = nullptr);
-    ~View() override;
+	public:
+		explicit View(QWidget *parent = nullptr, s21::Controller *c = nullptr);
 
-private:
-    Ui::View *ui;
-	Controller *controller;
-	GLWidget* glWidget;
-	QString filePath;
-private slots:
-	void openFilePushButtonClicked();
-	void cleanPushButtonClicked();
-	void setDefaultButton();
-	void setBackgroundColorClicked();
-	void setLinesColorClicked();
-	void setVertexesColorClicked();
+		~View() override;
 
-	void projectionTypeChanged(int index);
-	void linesTypeChanged(int index);
-	void vertexesTypeChanged(int index);
+	private:
+		Ui::View *ui;
+		Controller *controller;
+		GLWidget *glWidget;
+		QString filePath;
+	private slots:
 
-	void vertexSizeValueChanged(int value);
-	void linesWidthValueChanged(int value);
-};
+		void openFilePushButtonClicked();
+
+		void cleanPushButtonClicked();
+
+		void setDefaultButton();
+
+		void setBackgroundColorClicked();
+
+		void setLinesColorClicked();
+
+		void setVertexesColorClicked();
+
+		void projectionTypeChanged(int index);
+
+		void linesTypeChanged(int index);
+
+		void vertexesTypeChanged(int index);
+
+		void vertexSizeValueChanged(int value);
+
+		void linesWidthValueChanged(int value);
+	};
 }
 #endif // VIEW_H

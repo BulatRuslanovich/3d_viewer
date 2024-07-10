@@ -4,18 +4,22 @@
 #include <vector>
 
 namespace s21 {
-	class ModelDate {
+	class ModelData {
 	public:
 		struct Coordinate {
 			Coordinate() : x(0), y(0), z(0) {}
+
 			double x, y, z;
 		};
 
-		ModelDate() = default;
-		~ModelDate() = default;
+		ModelData() = default;
+
+		~ModelData() = default;
 
 		std::vector<Coordinate> &getCoordinates();
+
 		std::vector<int> &getPolygons();
+
 		void clearData();
 
 	private:

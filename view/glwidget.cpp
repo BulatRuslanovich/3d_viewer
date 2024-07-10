@@ -14,6 +14,8 @@ namespace s21 {
 		lineWidth = 1;
 		vertexSize = 1;
 
+		xRot = yRot = zRot = 0;
+
 		projectionType = ProjectionType::CENTRAL;
 		vertexesType = VertexesType::NONE;
 		linesType = LinesType::SOLID;
@@ -61,13 +63,13 @@ namespace s21 {
 
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3,
-							GL_DOUBLE,
-							0,
-							controller->getDate().getCoordinates().data());
+			                GL_DOUBLE,
+			                0,
+			                controller->getData().getCoordinates().data());
 			glDrawElements(GL_POINTS,
-			               (int)controller->getDate().getPolygons().size(),
-						   GL_UNSIGNED_INT,
-						   controller->getDate().getPolygons().data());
+			               (int) controller->getData().getPolygons().size(),
+			               GL_UNSIGNED_INT,
+			               controller->getData().getPolygons().data());
 			glDisableClientState(GL_VERTEX_ARRAY);
 		}
 
@@ -83,19 +85,19 @@ namespace s21 {
 		glVertexPointer(3,
 		                GL_DOUBLE,
 		                0,
-		                controller->getDate().getCoordinates().data());
+		                controller->getData().getCoordinates().data());
 		glDrawElements(GL_LINES,
-		               (int)controller->getDate().getPolygons().size(),
+		               (int) controller->getData().getPolygons().size(),
 		               GL_UNSIGNED_INT,
-		               controller->getDate().getPolygons().data());
+		               controller->getData().getPolygons().data());
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 
 	void GLWidget::initializeGL() {
 		glClearColor(backgroundColor.redF(),
-					 backgroundColor.greenF(),
-					 backgroundColor.blueF(),
-					 backgroundColor.alphaF());
+		             backgroundColor.greenF(),
+		             backgroundColor.blueF(),
+		             backgroundColor.alphaF());
 		glEnable(GL_DEPTH_TEST);
 	}
 
@@ -127,20 +129,39 @@ namespace s21 {
 	void GLWidget::wheelEvent(QWheelEvent *event) {
 		const float scaleFactor = 0.9f;
 
-//		if (event->angleDelta().y() > 0) {
-//
-//		} else {
-//
-//		}
-
+		if (event->angleDelta().y() > 0) {
+			controller->affine(Strategy::SelectionStrategy::ZOOM,
+			                    Strategy::TypeCoordinate::Z, &controller->getData(),
+			                    scaleFactor);
+		} else {
+			controller->affine(Strategy::SelectionStrategy::ZOOM,
+			                    Strategy::TypeCoordinate::Z, &controller->getData(),
+			                    1.0f / scaleFactor);
+		}
 		update();
 	}
 
-	void GLWidget::mousePressEvent(QMouseEvent *) {
+	void GLWidget::mousePressEvent(QMouseEvent *mouseEvent) {
+		mousePosition = mouseEvent->pos();
 	}
 
-	void GLWidget::mouseMoveEvent(QMouseEvent *) {
+	void GLWidget::mouseMoveEvent(QMouseEvent *mouseEvent) {
+		const float sense = 0.3f;
 
+		xRot = sense * static_cast<float>(mouseEvent->pos().y() - mousePosition.y());
+		yRot = sense * static_cast<float>(mouseEvent->pos().x() - mousePosition.x());
+		mousePosition = mouseEvent->pos();
+
+		controller->affine(Strategy::SelectionStrategy::ROTATE,
+		                    Strategy::TypeCoordinate::X, &controller->getData(),
+		                    -xRot);
+		sumRotX += xRot;
+
+		controller->affine(Strategy::SelectionStrategy::ROTATE,
+		                    Strategy::TypeCoordinate::Y, &controller->getData(),
+		                    yRot);
+		sumRotY += yRot;
+		update();
 	}
 
 	void GLWidget::setLinesType() {

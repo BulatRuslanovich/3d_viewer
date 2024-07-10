@@ -110,7 +110,8 @@ namespace s21 {
 		LinesType linesType;
 		VertexesType vertexesType;
 		ProjectionType projectionType;
-
+		double xRot, yRot, zRot;
+		double sumRotX, sumRotY, sumRotZ;
 
 		void drawVertexes();
 

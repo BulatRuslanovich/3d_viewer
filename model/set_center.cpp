@@ -7,11 +7,11 @@ namespace s21 {
 		return nextEvent;
 	}
 
-	void FindMinMax::execute(s21::ModelDate *data, Command command) {
+	void FindMinMax::execute(s21::ModelData *data, Command command) {
 		auto v = data->getCoordinates().begin();
 		initMinMax(*v);
 		if (command == Event::Command::findMinMax) {
-			for (auto &vertex : data->getCoordinates()) {
+			for (auto &vertex: data->getCoordinates()) {
 				min.x = std::min(min.x, vertex.x);
 				max.x = std::max(max.x, vertex.x);
 
@@ -28,7 +28,7 @@ namespace s21 {
 		}
 	}
 
-	void FindMinMax::initMinMax(const s21::ModelDate::Coordinate &vertex) {
+	void FindMinMax::initMinMax(const s21::ModelData::Coordinate &vertex) {
 		min.x = vertex.x;
 		min.y = vertex.y;
 		min.z = vertex.z;
@@ -44,7 +44,7 @@ namespace s21 {
 		scaleForCentre = e->scaleForCentre;
 	}
 
-	void FindMax::execute(s21::ModelDate *data, Command command) {
+	void FindMax::execute(s21::ModelData *data, Command command) {
 		if (command == Event::Command::findMax) {
 			scaleForCentre = std::max(max.x - min.x, std::max(max.y - min.y, max.z - min.z));
 		}
@@ -57,11 +57,11 @@ namespace s21 {
 		scaleForCentre = e->scaleForCentre;
 	}
 
-	void FindCentre::execute(s21::ModelDate *data, Command command) {
+	void FindCentre::execute(s21::ModelData *data, Command command) {
 		if (command == Event::Command::findCentre) {
 			double scale = 2.0 / scaleForCentre;
 
-			for (auto &vertex : data->getCoordinates()) {
+			for (auto &vertex: data->getCoordinates()) {
 				vertex.x -= centre.x;
 				vertex.y -= centre.y;
 				vertex.z -= centre.z;

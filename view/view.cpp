@@ -7,7 +7,7 @@ namespace s21 {
 			: QMainWindow(parent), ui(new Ui::View), controller(c) {
 		ui->setupUi(this);
 		setWindowTitle("3D Viewer");
-		controller->getDate().clearData();
+		controller->getData().clearData();
 		glWidget = new GLWidget(nullptr, controller);
 		ui->layoutForGl->addWidget(glWidget);
 		ui->centralwidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -60,16 +60,16 @@ namespace s21 {
 		ui->vertexCount->setText("");
 		ui->polygonCount->setText("");
 		ui->fileNameLabel->setText("");
-		controller->getDate().clearData();
+		controller->getData().clearData();
 		std::string std_string = filePath.toStdString();
 		if (controller->parseFile(std_string)) {
 			ui->vertexCount->setText(
-					QString::number(controller->getDate().getCoordinates().size()));
+					QString::number(controller->getData().getCoordinates().size()));
 			ui->polygonCount->setText(
-					QString::number(controller->getDate().getPolygons().size() / 2));
+					QString::number(controller->getData().getPolygons().size() / 2));
 			QFileInfo checkFile(filePath);
 			ui->fileNameLabel->setText(checkFile.fileName());
-			controller->setCenter(&controller->getDate());
+			controller->setCenter(&controller->getData());
 			glWidget->update();
 		}
 	}
@@ -81,7 +81,7 @@ namespace s21 {
 		ui->polygonCount->setText("");
 		ui->vertexCount->setText("");
 		glWidget->clearGLWidget();
-		controller->getDate().clearData();
+		controller->getData().clearData();
 	}
 
 	void View::setDefaultButton() {
@@ -100,7 +100,7 @@ namespace s21 {
 //		ui_->doubleSpinBox_Y_MOVE->setValue(0);
 //		ui_->doubleSpinBox_MOVE_Z->setValue(0);
 
-		controller->setCenter(&controller->getDate());
+		controller->setCenter(&controller->getData());
 		glWidget->update();
 	}
 
