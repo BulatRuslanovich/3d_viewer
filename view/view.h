@@ -39,6 +39,9 @@ namespace s21 {
 		double oldRotateYVal = 0;
 		double oldRotateZVal = 0;
 
+		void readSettings();
+		void writeSettings();
+
 	private slots:
 
 		void openFilePushButtonClicked();

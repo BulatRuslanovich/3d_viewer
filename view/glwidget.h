@@ -82,6 +82,22 @@ namespace s21 {
 			update();
 		}
 
+		[[nodiscard]] QColor getBackgroundColor() { return backgroundColor; }
+
+		[[nodiscard]] QColor getVertexesColor() { return vertexColor; }
+
+		[[nodiscard]] QColor getLinesColor() { return lineColor; }
+
+		[[nodiscard]] int getLineWidth() const { return lineWidth; }
+
+		[[nodiscard]] int getVertexSize() const { return vertexSize; }
+
+		[[nodiscard]] LinesType getLinesType() { return linesType; }
+
+		[[nodiscard]] VertexesType getVertexesType() { return vertexesType; }
+
+		[[nodiscard]] ProjectionType getProjectionType() { return projectionType; }
+
 	private:
 		s21::Controller *controller;
 		QColor backgroundColor;

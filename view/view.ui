@@ -582,7 +582,7 @@
            </widget>
           </item>
           <item row="1" column="1" colspan="2">
-           <widget class="QSlider" name="lineSizeEditer">
+           <widget class="QSlider" name="lineSizeEditor">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -653,7 +653,7 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QComboBox" name="VertexesType">
+           <widget class="QComboBox" name="vertexesType">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -683,7 +683,7 @@
            </widget>
           </item>
           <item row="1" column="1" colspan="3">
-           <widget class="QSlider" name="vertexSizeEditer">
+           <widget class="QSlider" name="vertexSizeEditor">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>

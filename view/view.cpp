@@ -1,4 +1,5 @@
 #include <QMessageBox>
+#include <QSettings>
 #include "view.h"
 #include "ui_view.h"
 
@@ -36,13 +37,13 @@ namespace s21 {
 		connect(ui->linesType, SIGNAL(currentIndexChanged(int)), this,
 		        SLOT(linesTypeChanged(int)));
 
-		connect(ui->VertexesType, SIGNAL(currentIndexChanged(int)), this,
+		connect(ui->vertexesType, SIGNAL(currentIndexChanged(int)), this,
 		        SLOT(vertexesTypeChanged(int)));
 
-		connect(ui->lineSizeEditer, SIGNAL(valueChanged(int)), this,
+		connect(ui->lineSizeEditor, SIGNAL(valueChanged(int)), this,
 		        SLOT(linesWidthValueChanged(int)));
 
-		connect(ui->vertexSizeEditer, SIGNAL(valueChanged(int)), this,
+		connect(ui->vertexSizeEditor, SIGNAL(valueChanged(int)), this,
 		        SLOT(vertexSizeValueChanged(int)));
 
 		connect(ui->setDefaultButton, SIGNAL(clicked()), this,
@@ -65,10 +66,12 @@ namespace s21 {
 		        SLOT(createGifClicked()));
 
 		glWidget->setDefault();
+		readSettings();
 	}
 
 
 	View::~View() {
+		writeSettings();
 		delete ui;
 		delete glWidget;
 		delete gifTimer;
@@ -109,10 +112,10 @@ namespace s21 {
 
 	void View::setDefaultButton() {
 		glWidget->setDefault();
-		ui->lineSizeEditer->setValue(1);
-		ui->vertexSizeEditer->setValue(0);
+		ui->lineSizeEditor->setValue(1);
+		ui->vertexSizeEditor->setValue(0);
 		ui->projectionType->setCurrentIndex(0);
-		ui->VertexesType->setCurrentIndex(0);
+		ui->vertexesType->setCurrentIndex(0);
 		ui->linesType->setCurrentIndex(0);
 
 		ui->moveXSlider->setValue(0);
@@ -283,6 +286,87 @@ namespace s21 {
 			ui->createGifPshBtn->setText("Create gif");
 			ui->createGifPshBtn->setEnabled(true);
 		}
+	}
+
+	void View::readSettings() {
+		QString pathSettings = QCoreApplication::applicationDirPath();
+		QSettings settings(pathSettings + "/settings.ini", QSettings::IniFormat);
+		settings.beginGroup("settings");
+
+		filePath = settings.value("filePath", "").toString();
+
+		QFileInfo check_file(filePath);
+
+		controller->getData().clearData();
+		std::string stdString = filePath.toStdString();
+		if (controller->parseFile(stdString)) {
+			ui->vertexCount->setText(
+					QString::number(controller->getData().getCoordinates().size()));
+			ui->polygonCount->setText(
+					QString::number(controller->getData().getPolygons().size() / 2));
+			ui->fileNameLabel->setText(check_file.fileName());
+			controller->setCenter(&controller->getData());
+		}
+
+		glWidget->setBackgroundColor(
+				QColor(settings.value("backgroundColor", QColor(Qt::black)).toString()));
+		glWidget->setLinesColor(
+				QColor(settings.value("linesColor", QColor(Qt::white)).toString()));
+		glWidget->setVertexesColor(
+				QColor(settings.value("vertexesColor", QColor(Qt::white)).toString()));
+
+		ui->lineSizeEditor->setValue(settings.value("lineSizeEditor", 1).toInt());
+		glWidget->setLinesWidth(settings.value("lineWidth", 1).toInt());
+
+		ui->vertexSizeEditor->setValue(
+				settings.value("vertexSizeEditor", 1).toInt());
+		glWidget->setVertexesSize(settings.value("vertexSize", 1).toInt());
+
+		ui->vertexesType->setCurrentIndex(settings.value("vertexesType", 0).toInt());
+		ui->linesType->setCurrentIndex(settings.value("linesType", 0).toInt());
+		ui->projectionType->setCurrentIndex(
+				settings.value("projectionType", 0).toInt());
+
+		glWidget->setLinesType(static_cast<GLWidget::LinesType>(
+				                       settings.value("lineType", static_cast<int>(GLWidget::LinesType::SOLID))
+						                       .toInt()));
+		glWidget->setVertexesType(static_cast<GLWidget::VertexesType>(
+				                          settings
+						                          .value("vertexType", static_cast<int>(GLWidget::VertexesType::NONE))
+						                          .toInt()));
+		glWidget->setProjectionType(static_cast<GLWidget::ProjectionType>(
+				                            settings
+						                            .value("projection",
+						                                   static_cast<int>(GLWidget::ProjectionType::CENTRAL))
+						                            .toInt()));
+		settings.endGroup();
+		glWidget->update();
+	}
+
+	void View::writeSettings() {
+		QString pathSettings = QCoreApplication::applicationDirPath();
+		QSettings settings(pathSettings + "/settings.ini", QSettings::IniFormat);
+		settings.beginGroup("settings");
+
+		settings.setValue("filePath", filePath);
+		settings.setValue("backgroundColor", glWidget->getBackgroundColor().name());
+		settings.setValue("linesColor", glWidget->getLinesColor().name());
+		settings.setValue("vertexesColor", glWidget->getVertexesColor().name());
+		settings.setValue("lineSizeEditor", ui->lineSizeEditor->value());
+		settings.setValue("lineWidth", glWidget->getLineWidth());
+		settings.setValue("vertexSize", glWidget->getVertexSize());
+		settings.setValue("vertexSizeEditor", ui->vertexSizeEditor->value());
+
+		settings.setValue("vertexesType", ui->vertexesType->currentIndex());
+		settings.setValue("linesType", ui->linesType->currentIndex());
+		settings.setValue("projectionType", ui->projectionType->currentIndex());
+
+		settings.setValue("lineType", static_cast<int>(glWidget->getLinesType()));
+		settings.setValue("vertexType", static_cast<int>(glWidget->getVertexesType()));
+		settings.setValue("projection", static_cast<int>(glWidget->getProjectionType()));
+
+
+		settings.endGroup();
 	}
 
 
