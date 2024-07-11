@@ -26,22 +26,29 @@ all: install tests dvi run
 install: uninstall clean
 	mkdir ../build
 	cd ../build && cmake .. && make 3dViewer
+
 rebuild:
 	cd ../build && make 3dViewer && ./3dViewer
+
 run:
 	cd ../build && ./3dViewer
+
 dvi:
 	cd ../dvi && $(OPEN) dvi.html
+
 uninstall:
 	rm -rf ../build
+
 clean:
 	clear
 	rm -rf test
 	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report ../3dViewer.tgz ../3dViewer
 	make style
+
 style:
 	clang-format -style=Google -n $(SRC_FILES)
 	clang-format -style=Google -i $(SRC_FILES)
+
 dist: install
 	mkdir -p 3dViewer
 	touch 3dViewer/Makefile
@@ -50,6 +57,7 @@ dist: install
 	tar cvzf 3dViewer.tgz 3dViewer/
 	mv 3dViewer.tgz ../
 	rm -rf 3dViewer/
+
 gcov_report: clean
 	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS) $(TEST_SRC) controller/controller.h model/*.cpp -o report
 	./report
