@@ -69,6 +69,7 @@
 
 Run the program:
 ```bash
-cd ../src
+git clone https://github.com/BulatRuslanovich/3d_viewer.git
+cd 3d_viewer/src/
 make
 ```
