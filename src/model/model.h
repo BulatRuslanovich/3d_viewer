@@ -31,7 +31,7 @@ class Model {
   FindMinMax *findMinMax;
   FindMax *findMax;
   FindCentre *findCentre;
-  AffineTransformations affineTransformations;
+  AffineTransformations affineTransformations{};
   Strategy *moveObj;
   Strategy *rotateObj;
   Strategy *zoomObj;

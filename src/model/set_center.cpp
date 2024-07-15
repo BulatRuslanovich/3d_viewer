@@ -37,13 +37,6 @@ void FindMinMax::initMinMax(const s21::ModelData::Coordinate &vertex) {
   max.z = vertex.z;
 }
 
-void FindMinMax::update(Event *e) {
-  min = e->min;
-  max = e->max;
-  centre = e->centre;
-  scaleForCentre = e->scaleForCentre;
-}
-
 void FindMax::execute(s21::ModelData *data, Command command) {
   data->getCoordinates();  // error: unused parameter ‘data’
                            // [-Werror=unused-parameter]2

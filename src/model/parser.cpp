@@ -65,9 +65,7 @@ void Parser::parsePolygon(const std::string &line, ModelData *data) {
     }
   }
 
-  if (firstPolygon != -1) {
-    data->getPolygons().push_back(firstPolygon);
-  }
+  if (firstPolygon != -1) data->getPolygons().push_back(firstPolygon);
 }
 
 void Parser::adjustPolygonIndex(int *num, ModelData *data) {

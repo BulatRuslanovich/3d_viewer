@@ -26,7 +26,6 @@ add_executable(3dViewer
         src/model/model_data.h
         src/model/model_data.h
         src/model/model_data.h
-        src/model/model_data.cpp
         src/model/model.h
         src/model/model.cpp
         src/controller/controller.h

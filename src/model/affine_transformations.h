@@ -51,7 +51,7 @@ class AffineTransformations {
 
   ~AffineTransformations() = default;
 
-  void setStrategy(Strategy *strategy);
+  void setStrategy(Strategy *newStrategy);
 
   void transformations(ModelData *data, double point,
                        Strategy::TypeCoordinate typeCoordinate);

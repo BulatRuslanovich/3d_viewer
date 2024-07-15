@@ -47,8 +47,6 @@ class FindMinMax : public AbstractEvent {
   void execute(s21::ModelData *data, Command command) override;
 
   void initMinMax(const s21::ModelData::Coordinate &vertex);
-
-  void update(Event *e);
 };
 
 class FindMax : public AbstractEvent {

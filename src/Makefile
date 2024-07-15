@@ -40,7 +40,6 @@ uninstall:
 	rm -rf ../build
 
 clean:
-	clear
 	rm -rf test
 	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report ../3dViewer.tgz ../3dViewer
 	make style

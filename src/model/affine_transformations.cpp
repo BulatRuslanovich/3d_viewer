@@ -70,8 +70,8 @@ void ZoomObj::transformations(ModelData *data, double point,
   }
 }
 
-void AffineTransformations::setStrategy(Strategy *strategy) {
-  this->strategy = strategy;
+void AffineTransformations::setStrategy(Strategy *newStrategy) {
+  this->strategy = newStrategy;
 }
 
 void AffineTransformations::transformations(

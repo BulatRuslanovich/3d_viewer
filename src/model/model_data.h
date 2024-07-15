@@ -16,11 +16,14 @@ class ModelData {
 
   ~ModelData() = default;
 
-  std::vector<Coordinate> &getCoordinates();
+  std::vector<Coordinate> &getCoordinates() { return coordinates; };
 
-  std::vector<int> &getPolygons();
+  std::vector<int> &getPolygons() { return polygons; };
 
-  void clearData();
+  void clearData() {
+    coordinates.clear();
+    polygons.clear();
+  };
 
  private:
   std::vector<Coordinate> coordinates;
